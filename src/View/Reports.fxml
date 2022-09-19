@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="761.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
+    <children>
+        <HBox prefHeight="51.0" prefWidth="1000.0">
+            <children>
+                <AnchorPane prefHeight="51.0" prefWidth="1002.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="384.0" layoutY="8.0" prefHeight="26.0" prefWidth="232.0" text="Reports">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="Exit" layoutX="904.0" layoutY="13.0" mnemonicParsing="false" onAction="#exitAction" text="Exit" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+        <HBox layoutY="51.0" prefHeight="51.0" prefWidth="1000.0">
+            <children>
+                <AnchorPane prefHeight="51.0" prefWidth="1002.0">
+                    <children>
+                        <Label layoutX="23.0" layoutY="17.0" prefHeight="27.0" prefWidth="278.0" text="Appointments by Month and Type">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </children></HBox>
+        <AnchorPane layoutX="-1.0" layoutY="121.0" prefHeight="170.0" prefWidth="1000.0">
+            <children>
+                <TableView fx:id="appsMonthAndType" prefHeight="185.0" prefWidth="1000.0">
+                    <columns>
+                        <TableColumn fx:id="monthCol" prefWidth="338.0" text="Month" />
+                        <TableColumn fx:id="typeCol" prefWidth="358.0" text="Type" />
+                        <TableColumn fx:id="countCol" prefWidth="303.0" text="Count" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <HBox layoutX="1.0" layoutY="306.0" prefHeight="73.0" prefWidth="1000.0">
+            <children>
+                <AnchorPane prefHeight="48.0" prefWidth="1000.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="8.0" layoutY="23.0" prefHeight="17.0" prefWidth="256.0" text="Appointments by Contact">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="contactCombo" layoutX="425.0" layoutY="24.0" onAction="#contactComboAction" prefWidth="150.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+        <AnchorPane layoutX="2.0" layoutY="379.0" prefHeight="98.0" prefWidth="999.0">
+            <children>
+                <TableView fx:id="appsByContact" prefHeight="149.0" prefWidth="1001.0">
+                    <columns>
+                        <TableColumn fx:id="appointmentId" prefWidth="99.0" text="Appointment ID" />
+                        <TableColumn fx:id="appType" prefWidth="158.0" text="Type" />
+                        <TableColumn fx:id="title" prefWidth="114.0" text="Title" />
+                        <TableColumn fx:id="description" prefWidth="212.0" text="Description" />
+                        <TableColumn fx:id="startDatetime" prefWidth="187.0" text="Start Date / Time" />
+                        <TableColumn fx:id="endDateTime" prefWidth="113.0" text="End Time" />
+                        <TableColumn fx:id="customerId" prefWidth="116.0" text="Customer ID" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <HBox layoutX="-1.0" layoutY="528.0" prefHeight="73.0" prefWidth="1003.0">
+            <children>
+                <AnchorPane prefHeight="73.0" prefWidth="1003.0">
+                    <children>
+                        <Label layoutX="30.0" layoutY="28.0" text="Customers with same Zip">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+        <AnchorPane layoutY="601.0" prefHeight="199.0" prefWidth="1000.0">
+            <children>
+                <TableView fx:id="customersSharedZip" prefHeight="200.0" prefWidth="1003.0">
+                    <columns>
+                        <TableColumn fx:id="sharedZip" prefWidth="510.0" text="Zip" />
+                        <TableColumn fx:id="zipCount" prefWidth="491.0" text="Count" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
