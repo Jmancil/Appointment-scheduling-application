@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-
 import java.util.Optional;
 
 /*
@@ -30,8 +29,8 @@ public class Helper {
     Validates user login by parsing DB with Read.getUSersInfo
     Iterates user list for username and password match, returns true if found
     Returns false if not found
-    @param String username
-    @param String password
+    @param String username user username for comparison
+    @param String password user password for comparison
      */
     public static boolean loginValidation(String username, String password) {
 
@@ -66,7 +65,7 @@ public class Helper {
         A simple confirmation alert error that is used throughout program to alert user to confirmation error messages
         @param AlertError error
         @param String title
-        @param Stirng header
+        @param String header
          */
     public static void AlertError(Alert.AlertType Error, String title, String header) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -94,6 +93,7 @@ Reads LocalDateTime to a string
     }
 /*
 Screen change method used throughout program to more easily change screens
+@throws IOException Exception catches IO errors if exist
 @param ActionEvent actionEvent
 @param String resourceName
 @param String title
@@ -193,7 +193,6 @@ checks if data entry is null returns boolean if true/false
         }
         return isValid;
     }
-
 }
 
 

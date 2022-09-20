@@ -39,7 +39,7 @@ public abstract class JDBC {
         return connection;
     }
 
-    //This method closses connect to DB
+    //This method closes connect to DB
     public static void closeConnection() {
         try {
             connection.close();

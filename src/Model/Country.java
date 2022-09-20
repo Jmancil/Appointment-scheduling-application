@@ -1,21 +1,35 @@
 package Model;
 
-//Country class constructor object creation
-//Used for popualting combo boxes of countrys
+/**
+ * Country class object
+ */
 
 public class Country {
     private final int id;
     private final String countryName;
-    //Constructor
+
+    /**
+     *
+     * @param id                Country ID
+     * @param countryName       Country Name
+     */
     public Country(int id, String countryName) {
         this.id = id;
         this.countryName = countryName;
     }
-    //getter for id
+    /**
+     * Gets the Country Id
+     *
+     * @return Country Id is returned
+     */
     public int getId() {
         return id;
     }
-    //getter for countryName
+    /**
+     * Gets the Country Name
+     *
+     * @return Country Name is returned
+     */
     public String getCountryName() {
         return countryName;
     }

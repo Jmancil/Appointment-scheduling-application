@@ -63,8 +63,8 @@ Method for passing in the appointment to modify
         ModifyAppointment.setAppPass = getAppointment;
     }
 /*
-setting the text fields for the modify appointment view
-@param Appointment appointment
+@param Appointment appointment setting the text fields for the modify appointment view
+@throws IOException Exception catches IO errors if exist
  */
     public void appointmentPass(Appointment appointment) throws IOException, SQLException {
         appointmentId.setText(String.valueOf(appointment.getAppointmentId()));

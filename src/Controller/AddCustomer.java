@@ -56,7 +56,10 @@ public class AddCustomer implements Initializable {
     public AddCustomer() throws SQLException {
     }
 
-//Save and exit to main screen
+/*
+@param ActionEvent actionEvent saves and exits to main screen
+@throws IOException Exception catches IO errors if exist
+ */
     public void saveExit(ActionEvent actionEvent) throws IOException {
 //Alert creation to use as trigger to create and add a customer
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -104,7 +107,10 @@ public class AddCustomer implements Initializable {
         }
     }
 
-    //Exits the Add Customer screen with user prompt - does not save input data
+    /*
+    @param ActionEvent actionEvent Exits the Add Customer screen with user prompt - does not save input data
+    @throws IOException Exception catches IO errors if exist
+     */
     public void customerExit(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Go to main menu?");
@@ -131,7 +137,8 @@ public class AddCustomer implements Initializable {
         passCustomerNumbers(customers.size());
     }
 /*
-CountryComboAction used to populate country drop down and then display available list of Divsions for specific country
+@param ActionEvent actionEvent CountryComboAction used to populate country drop down and then display available list of Divisions for specific country
+@throws IOException Exception catches IO errors if exist
  */
     public void countryComboAction(ActionEvent actionEvent) throws SQLException {
         divisionInfoCombo.getItems().clear();

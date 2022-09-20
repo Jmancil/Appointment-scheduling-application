@@ -38,42 +38,41 @@ public class ModifyCustomer implements Initializable {
     public ComboBox divisionCombo;
     public String loggedInUser;
     private static Customer setCustomerPass;
-    private ObservableList<Division> divisions = Read.getAllDivisions();
 
+    private ObservableList<Division> divisions = Read.getAllDivisions();
+    //initialization for ModifyCustomer
     public ModifyCustomer() throws SQLException {
     }
 /*
-Catching logged in user from main screen
-@param String loggedInUser
+@param String loggedInUser Catching logged in user from main screen
  */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
 /*
-catching customer to be modified
-@param Customer getCustomer
+@param Customer getCustomer catching customer to be modified
 */
     public static void setCustomerPass(Customer getCustomer) {
         ModifyCustomer.setCustomerPass = getCustomer;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
 /*
 Initializing customerPass
 */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
             customerPass(setCustomerPass);
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
 /*
-customer pass method used for passing in highlighted customer from main screen
+@param Customer customer customer pass method used for passing in highlighted customer from main screen
 sets text fields with correct data from passed customer
 Creates country object by using specific country ID
-@param Customer customer
+@throws IOException Exception catches IO errors if exist
  */
     public void customerPass(Customer customer) throws IOException, SQLException {
         Country country = Read.getCounryById(customer.getId());
@@ -87,6 +86,8 @@ Creates country object by using specific country ID
     }
 
 /*
+@param ActionEvent actionEvent
+@throws IOException Exception catches IO errors if exist
 Saves and exits modify customer to main screen
  */
     public void saveExit(ActionEvent actionEvent) throws IOException {
@@ -136,7 +137,9 @@ also passes back logged in user that is used for DB updates.
             }
         }
     }
-/*Exit action from modify customer to main screen
+/*
+@param ActionEvent actionEvent Exit action from modify customer to main screen
+@throws IOException Exception catches IO errors if exist
 No data is saved
  */
         public void exitAction (ActionEvent actionEvent) throws IOException {

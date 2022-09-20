@@ -119,7 +119,8 @@ public class MainScreen implements Initializable {
     public MainScreen() throws SQLException {
     }
 /*
-AddCustomerAction points to new window with FXMLloader and passes logged in user from above
+@param ActionEvent actionEvent AddCustomerAction points to new window with FXMLloader and passes logged in user from above
+@throws IOException Exception catches IO errors if exist
  */
     public void addCustomerAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Add Customer.fxml"));
@@ -134,7 +135,8 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
     }
 
     /*
-AddAppointment action points to new window with FXMLloader and passes logged in user from above
+@param ActionEvent actionEvent AddAppointment action points to new window with FXMLloader and passes logged in user from above
+@throws IOException Exception catches IO errors if exist
  */
     public void addAppointAction(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Add Appointment.fxml"));
@@ -149,8 +151,9 @@ AddAppointment action points to new window with FXMLloader and passes logged in 
     }
 
     /*
-modifyCustomerAction action points to new window with FXMLloader and passes logged in user from above
+@param ActionEvent actionEvent modifyCustomerAction action points to new window with FXMLloader and passes logged in user from above
 Utilizes .getSelection and .getSelectedItem to create a new Customer from the highlighted item to pass to the next screen
+@throws IOException Exception catches IO errors if exist
 */
     public void modifyCustomerAction(javafx.event.ActionEvent actionEvent) throws IOException {
         Customer highLightedCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -171,8 +174,9 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
     }
 
     /*
-    modifyAppointment action points to new window with FXMLloader and passes logged in user from above
+    @param ActionEvent actionEvent modifyAppointment action points to new window with FXMLloader and passes logged in user from above
     Utilizes .getSelection and .getSelectedItem to create a new customer from the highlighted item to pass to the next screen
+    @throws IOException Exception catches IO errors if exist
     */
     public void ModifyAppointmentAction(javafx.event.ActionEvent actionEvent) throws IOException {
         Appointment highLightedAppointment = appTable.getSelectionModel().getSelectedItem();
@@ -192,7 +196,7 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
     }
 
     /*
-    deletes the highlighted Customer - also displays error message if no customer is highlighted
+    @param ActionEvent actionEvent deletes the highlighted Customer - also displays error message if no customer is highlighted
      */
     public void deleteCustomerAction(javafx.event.ActionEvent actionEvent) {
         Customer deleteHighLightedCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -219,8 +223,8 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
         }
     }
     /*
-        deletes the highlighted appointment - also displays error message if no appointment is highlighted
-         */
+    @param ActionEvent actionEvent deletes the highlighted appointment - also displays error message if no appointment is highlighted
+    */
     public void deleteAppointmentAction(ActionEvent actionEvent) {
         Appointment deleteHighlightedAppointment = appTable.getSelectionModel().getSelectedItem();
 
@@ -246,7 +250,8 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
     }
 
     /*
-        reportsAction action points to new window with FXMLloader and passes logged in user from above
+        @param ActionEvent actionEvent reportsAction action points to new window with FXMLloader and passes logged in user from above
+        @throws IOException Exception catches IO errors if exist
         */
     public void reportsAction(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Reports.fxml"));
@@ -260,7 +265,7 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
         window.show();
     }
 /*
-sets the view for appointments to display all appointments regardless of when the appointment is
+@param ActionEvent actionEvent sets the view for appointments to display all appointments regardless of when the appointment is
 this is also the default setting when a user first enters the application
  */
     public void viewAllAction(ActionEvent actionEvent) {
@@ -271,7 +276,7 @@ this is also the default setting when a user first enters the application
         appTable.setItems(appointments);
     }
     /*
-    Sets the appointments displayed to a monthly timeframe
+    @param ActionEvent actionEvent Sets the appointments displayed to a monthly timeframe
      */
 
     public void viewMonthlyAction(ActionEvent actionEvent) {
@@ -282,7 +287,7 @@ this is also the default setting when a user first enters the application
         appTable.setItems(monthlyAppointments);
     }
     /*
-    Sets the appointments displayed to a weekly timeframe
+    @param ActionEvent actionEvent Sets the appointments displayed to a weekly timeframe
      */
 
     public void viewWeeklyAction(ActionEvent actionEvent) {

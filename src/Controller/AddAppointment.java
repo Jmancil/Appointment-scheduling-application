@@ -106,6 +106,7 @@ Loader object created to move user to main screen and pass back loggedInUser
 
 /*
 @param ActionEvent actionEvent
+@throws IOException Exception catches IO errors if exist
 creates Alert used for trigger to switch screens
 passes logged in user
  */
@@ -172,7 +173,10 @@ catches loggedInUser
             }
         }
     }
-//Initializes contactCombo for use
+/*
+@param ActionEvent actionEvent Initializes contactCombo
+@throws IOException Exception catches IO errors if exist
+ */
     public void contactComboAction(ActionEvent actionEvent) throws SQLException {
     }
 
@@ -183,8 +187,7 @@ Still cycles through contacts to assign correct display to contact combo box dro
         contacts.forEach(contact -> contactCombo.getItems().add(contact.getContactNa()));
     }
 /*
-Checks if appointment being added is overlapped with another appointment
-@param Appointment appoint
+@param Appointment appointment Checks if appointment being added is overlapped with another appointment
 Receives appointment that gets compared to all other appointments
 Comparison is handled by finding matching customerId's
  */
