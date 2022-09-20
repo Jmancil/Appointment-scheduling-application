@@ -20,10 +20,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/*
+Add appointment class
+ */
 public class AddAppointment implements Initializable {
     public TextField appointmentId;
     public TextField userId;
@@ -37,16 +39,27 @@ public class AddAppointment implements Initializable {
     public ComboBox contactCombo;
     public TextField type;
     private String loggedInUser;
-    private int numberOfAppointments;
+    private int appNumbers;
+    /*
+    Creation of appointment and contact arrays
+     */
     public ObservableList<Appointment> appointments = Read.getAppointments();
     public ObservableList<Contact> contacts = Read.getallContacts();
 
+    /*
+    Save and exit action for a new appointment
+    @throws IOException - catches exceptions if thrown
+    @param ActionEvent actionEvent button press trigger for creation of Appointment
+     */
     public void saveAction(ActionEvent actionEvent) throws IOException, SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Press OK to submit");
         alert.setContentText("Create a new Customer?");
         alert.setTitle("Create a new Customer");
         Optional<ButtonType> decision = alert.showAndWait();
+/*
+ Alert created above and used below as trigger to assign data from fields to new appointment object
+*/
         if (decision.get() == ButtonType.OK) {
             int idl = Integer.parseInt(appointmentId.getText());
             int userIdl = Integer.parseInt(userId.getText());
@@ -59,15 +72,23 @@ public class AddAppointment implements Initializable {
             String typel = type.getText();
             String contactName = contactCombo.getSelectionModel().getSelectedItem().toString();
             int contactId = 0;
+            /*
+            Contact for loop to select correct contact ID
+             */
             for (Contact contact : contacts) {
                 if (contactName.equalsIgnoreCase(contact.getContactNa())) {
                     contactId = contact.getContactId();
                 }
             }
+            /*
+            New appointment created and checked with isAppointmentOverLapped method & isAppBusinesshours method
+             */
                 Appointment newAppointment = new Appointment(typel, locationl, descriptionl, titlel, contactId, customerID, userIdl, idl, endl, startl, loggedInUser);
                 if (!isAppointmnetOverlapped(newAppointment) && isAppBusinessHours(newAppointment)) {
                     Create.createAppointment(newAppointment);
-
+/*
+Loader object created to move user to main screen and pass back loggedInUser
+ */
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main Screen.fxml"));
                     Parent mainScreenParent = loader.load();
                     MainScreen controller = loader.getController();
@@ -83,72 +104,97 @@ public class AddAppointment implements Initializable {
             }
             }
 
-
+/*
+@param ActionEvent actionEvent
+creates Alert used for trigger to switch screens
+passes logged in user
+ */
     public void exitAction(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Exit and return to main screen?");
         alert.setTitle("Exit and return to main screen?");
-        System.out.println(loggedInUser);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Helper.screenChange(actionEvent, "/View/Main Screen.fxml", "Main Screen", true);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main Screen.fxml"));
+            Parent mainScreenParent = loader.load();
+            MainScreen controller = loader.getController();
+            controller.passLoggedInUser(loggedInUser);
+            Scene mainScreenScene = new Scene(mainScreenParent);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(mainScreenScene);
+            window.show();
         }
     }
-
+/*
+catches loggedInUser
+ */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
+    /*
+    Initializing contactcombo and passing number of appointments for ID auto assignment
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        passNumberOfAppointments(appointments.size());
+        passAppNumbers(appointments.size());
         contactComboPopulate();
     }
 
-    public void passNumberOfAppointments(int numberOfAppointments) {
-        this.numberOfAppointments = numberOfAppointments;
-        getNextIdNumber(numberOfAppointments);
+    /*
+    @param int numberOfAppointments
+    passing appointment numbers between screens
+     */
+    public void passAppNumbers(int appNumbers) {
+        this.appNumbers = appNumbers;
+        getAppNext(appNumbers);
     }
 
-    public void getNextIdNumber(int numberOfAppointments) {
-        int size = numberOfAppointments; // Set the size
-        int i = 1;  // Iterator
+    public void getAppNext(int numberOfAppointments) {
+        int size = numberOfAppointments; // Setting number of appointments size
+        int n = 1;  // Iterator for check and setting values
 
-        // If no customers in database
-        if (size == 0) {
+        // Checks if DB has customers, if not sets to 1
+        if (size <= 0) {
             appointmentId.setText("1");
-        } else {
+        } else { //Iterates appointments checking if appId = current n value
             for (Appointment appointment : appointments) {
-                if (appointment.getAppointmentId() == i) {
-                    if (i == size) {
-                        appointmentId.setText(String.valueOf(i + 1));
+                if (appointment.getAppointmentId() == n) {
+                    if (n == size) {
+                        appointmentId.setText(String.valueOf(n + 1));
                     }
-                    i += 1;
+                    n += 1;
                     continue;
                 } else {
-                    appointmentId.setText(String.valueOf(i));
+                    appointmentId.setText(String.valueOf(n));
                     break;
                 }
             }
         }
     }
-
+//Initializes contactCombo for use
     public void contactComboAction(ActionEvent actionEvent) throws SQLException {
     }
 
-/*Lambda express to replace for loop
+/*Lambda expression to replace for loop
 Still cycles through contacts to assign correct display to contact combo box drop down selectable
  */
     public void contactComboPopulate(){
         contacts.forEach(contact -> contactCombo.getItems().add(contact.getContactNa()));
     }
-
+/*
+Checks if appointment being added is overlapped with another appointment
+@param Appointment appoint
+Receives appointment that gets compared to all other appointments
+Comparison is handled by finding matching customerId's
+ */
     public boolean isAppointmnetOverlapped(Appointment appointment) {
         boolean isOverlapped = false;
         ObservableList<Appointment> appointments;
         appointments = Read.getAppointments();
         for (Appointment appointmentl : appointments) {
             if(appointment.getCustomerId() == appointmentl.getCustomerId()){
+                //if customerId matches checks day of appointment to see if it falls on Saturday, throws alert if true
                 if(appointment.getStartDateTime().getDayOfWeek().equals(DayOfWeek.SATURDAY)){
                     isOverlapped = true;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -157,6 +203,7 @@ Still cycles through contacts to assign correct display to contact combo box dro
                     alert.showAndWait();
                     break;
                 }
+                //if customerId matches checks day of appointment to see if it falls on Sunday, throws alert if true
                 if(appointment.getStartDateTime().getDayOfWeek().equals(DayOfWeek.SUNDAY)){
                     isOverlapped = true;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -165,6 +212,7 @@ Still cycles through contacts to assign correct display to contact combo box dro
                     alert.showAndWait();
                     break;
                 }
+                //checks endDateTime and startDateTime of appointment returns true or false
                 if(appointment.getEndDateTime().isAfter(appointmentl.getStartDateTime()) && appointment.getAppointmentId() != appointmentl.getAppointmentId()){
                     if(appointment.getStartDateTime().isBefore(appointmentl.getEndDateTime())){
                         isOverlapped = true;
@@ -175,25 +223,31 @@ Still cycles through contacts to assign correct display to contact combo box dro
         }
         return isOverlapped;
     }
-
+/*
+@param String string Date revert for start and end times
+ */
     public static LocalDateTime dateRevert(String string) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime test = LocalDateTime.parse(string, formatter);
         return test;
     }
 
+    /*
+    @param Appointment appointment converts time of app to localDate and compares to LocalDateTime start and end of business hours
+    returns true or false
+     */
     public boolean isAppBusinessHours(Appointment appointment){
         boolean testValid = true;
         LocalDate test = appointment.getStartDateTime().toLocalDate();
+        //dayStart is localDateTime + 8 hours from midnight
         LocalDateTime dayStart = LocalDateTime.of(test, LocalTime.MIDNIGHT.plusHours(8));
+        //dayEnd is localDateTime + 22 hours from midnight
         LocalDateTime dayEnd = LocalDateTime.of(test, LocalTime.MIDNIGHT.plusHours(22));
         if(appointment.getStartDateTime().isBefore(dayStart) || appointment.getEndDateTime().isAfter(dayEnd)){
             testValid = false;
         }
         return  testValid;
     }
-
-
 }
 
 

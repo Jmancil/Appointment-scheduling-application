@@ -20,6 +20,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/*
+Main Screen controller
+ */
 public class MainScreen implements Initializable {
     @FXML
     public TableView<Customer> customerTable;
@@ -130,6 +133,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         window.show();
     }
 
+    /*
+AddAppointment action points to new window with FXMLloader and passes logged in user from above
+ */
     public void addAppointAction(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Add Appointment.fxml"));
         Parent addAppointment = loader.load();
@@ -142,6 +148,10 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         window.show();
     }
 
+    /*
+modifyCustomerAction action points to new window with FXMLloader and passes logged in user from above
+Utilizes .getSelection and .getSelectedItem to create a new Customer from the highlighted item to pass to the next screen
+*/
     public void modifyCustomerAction(javafx.event.ActionEvent actionEvent) throws IOException {
         Customer highLightedCustomer = customerTable.getSelectionModel().getSelectedItem();
         ModifyCustomer.setCustomerPass(highLightedCustomer);
@@ -160,7 +170,10 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         window.show();
     }
 
-
+    /*
+    modifyAppointment action points to new window with FXMLloader and passes logged in user from above
+    Utilizes .getSelection and .getSelectedItem to create a new customer from the highlighted item to pass to the next screen
+    */
     public void ModifyAppointmentAction(javafx.event.ActionEvent actionEvent) throws IOException {
         Appointment highLightedAppointment = appTable.getSelectionModel().getSelectedItem();
         ModifyAppointment.setAppPass(highLightedAppointment);
@@ -178,6 +191,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         window.show();
     }
 
+    /*
+    deletes the highlighted Customer - also displays error message if no customer is highlighted
+     */
     public void deleteCustomerAction(javafx.event.ActionEvent actionEvent) {
         Customer deleteHighLightedCustomer = customerTable.getSelectionModel().getSelectedItem();
 
@@ -202,7 +218,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
             Helper.AlertError(Alert.AlertType.ERROR, "Selected customer must not have associated appointments", "Please delete associated appointments");
         }
     }
-
+    /*
+        deletes the highlighted appointment - also displays error message if no appointment is highlighted
+         */
     public void deleteAppointmentAction(ActionEvent actionEvent) {
         Appointment deleteHighlightedAppointment = appTable.getSelectionModel().getSelectedItem();
 
@@ -227,6 +245,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         }
     }
 
+    /*
+        reportsAction action points to new window with FXMLloader and passes logged in user from above
+        */
     public void reportsAction(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Reports.fxml"));
         Parent reports = loader.load();
@@ -238,7 +259,10 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
         window.setScene(mainScreenScene);
         window.show();
     }
-
+/*
+sets the view for appointments to display all appointments regardless of when the appointment is
+this is also the default setting when a user first enters the application
+ */
     public void viewAllAction(ActionEvent actionEvent) {
         viewWeeklyRadio.setSelected(false);
         viewMonthlyRadio.setSelected(false);
@@ -246,6 +270,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
 
         appTable.setItems(appointments);
     }
+    /*
+    Sets the appointments displayed to a monthly timeframe
+     */
 
     public void viewMonthlyAction(ActionEvent actionEvent) {
         viewWeeklyRadio.setSelected(false);
@@ -254,6 +281,9 @@ AddCustomerAction points to new window with FXMLloader and passes logged in user
 
         appTable.setItems(monthlyAppointments);
     }
+    /*
+    Sets the appointments displayed to a weekly timeframe
+     */
 
     public void viewWeeklyAction(ActionEvent actionEvent) {
         viewMonthlyRadio.setSelected(false);

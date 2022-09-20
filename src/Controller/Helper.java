@@ -94,7 +94,7 @@ Reads LocalDateTime to a string
     }
 /*
 Screen change method used throughout program to more easily change screens
-@param Actionevent actionevent
+@param ActionEvent actionEvent
 @param String resourceName
 @param String title
 @param boolean isResize
