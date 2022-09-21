@@ -81,28 +81,30 @@ public class AddAppointment implements Initializable {
                 }
             }
             /*
-            New appointment created and checked with isAppointmentOverLapped method & isAppBusinesshours method
+            New appointment created and checked with isAppointmentOverLapped method & isAppBusinessHours method to check for overlapping
+            appointment times and that the appointment falls within the weekday
              */
+
                 Appointment newAppointment = new Appointment(typel, locationl, descriptionl, titlel, contactId, customerID, userIdl, idl, endl, startl, loggedInUser);
                 if (!isAppointmnetOverlapped(newAppointment) && isAppBusinessHours(newAppointment)) {
-                    Create.createAppointment(newAppointment);
-/*
-Loader object created to move user to main screen and pass back loggedInUser
- */
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main Screen.fxml"));
-                    Parent mainScreenParent = loader.load();
-                    MainScreen controller = loader.getController();
-                    controller.passLoggedInUser(loggedInUser);
-                    System.out.println(loggedInUser);
-                    Scene mainScreenScene = new Scene(mainScreenParent);
-                    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                    window.setScene(mainScreenScene);
-                    window.show();
+                        Create.createAppointment(newAppointment);
+                    /*
+                    Loader object created to move user to main screen and pass back loggedInUser
+                    */
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main Screen.fxml"));
+                        Parent mainScreenParent = loader.load();
+                        MainScreen controller = loader.getController();
+                        controller.passLoggedInUser(loggedInUser);
+                        System.out.println(loggedInUser);
+                        Scene mainScreenScene = new Scene(mainScreenParent);
+                        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                        window.setScene(mainScreenScene);
+                        window.show();
                 } else {
-                    Helper.AlertError(Alert.AlertType.ERROR, "Invalid appointment hours", "Appointment time is overlapping or Appointment Start/End date is before or after business hours");
-                }
+                Helper.AlertError(Alert.AlertType.ERROR, "Invalid appointment hours", "Appointment time is overlapping or Appointment Start/End date is before or after business hours");
             }
-            }
+        }
+    }
 
 /*
 @param ActionEvent actionEvent

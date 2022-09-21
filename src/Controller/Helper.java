@@ -151,7 +151,7 @@ checks if data entry is null returns boolean if true/false
         boolean isValid = true;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid data input");
-        if(appointment.getUserId() <= 0){
+        if(appointment.getUserId() != 0){
             headerText = "Please input user ID";
             alert.setHeaderText(headerText);
         }
@@ -159,7 +159,7 @@ checks if data entry is null returns boolean if true/false
             headerText = ("Please input customer ID");
             alert.setHeaderText(headerText);
         }
-        if(appointment.getTitle().contains("")){
+        if(appointment.getTitle() == null){
             headerText = ("Please input title");
             alert.setHeaderText(headerText);
         }
@@ -193,6 +193,54 @@ checks if data entry is null returns boolean if true/false
         }
         return isValid;
     }
+
+//    public static boolean validateAppointment(Appointment appointment){
+//        String headerText = "";
+//        boolean isValid = true;
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle("Invalid data input");
+//        if(appointment.getUserId() <= 0){
+//            headerText = "Please input user ID";
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getCustomerId() <= 0){
+//            headerText = ("Please input customer ID");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getTitle().contains("")){
+//            headerText = ("Please input title");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getDescription() == null){
+//            headerText = ("Please input description");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getLocation() == null){
+//            headerText = ("Please input location");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getType() == null){
+//            headerText = ("Please input type");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getType() == null) {
+//            headerText = ("Please input type");
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getStartDateTime() == null) {
+//            headerText = " Please input Start Date time with format of yyyy-MM-dd HH:mm";
+//            alert.setHeaderText(headerText);
+//        }
+//        if(appointment.getEndDateTime() == null) {
+//            headerText = "Please input End Date time with format of yyyy-MM-dd HH:mm";
+//            alert.setHeaderText(headerText);
+//        }
+//        if(!headerText.isEmpty()){
+//            alert.showAndWait();
+//            isValid = false;
+//        }
+//        return isValid;
+//    }
 }
 
 
