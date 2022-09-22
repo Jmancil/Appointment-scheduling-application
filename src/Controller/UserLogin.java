@@ -60,10 +60,10 @@ public class UserLogin implements Initializable {
         String password = userPassword.getText();
         loggingLogginAttempt();
         passUsername(username);
-        fifteenMinuteAlert();
 
         boolean loginValid = Helper.loginValidation(username, password);
         if (loginValid){
+            fifteenMinuteAlert();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main Screen.fxml"));
             Parent mainScreenParent = loader.load();
             MainScreen controller = loader.getController();
@@ -90,24 +90,27 @@ public class UserLogin implements Initializable {
         String password = userPassword.getText();
         boolean loginValid = Helper.loginValidation(username, password);
         Path currPath = Paths.get("src");
-        Path filePath = Path.of(currPath + "loggingactivity.txt");
-
+        Path filePath = Path.of(currPath + "/login_activity.txt");
+        String logAttempt;
         boolean existFile = Files.exists(filePath);
+
         //if / nested if else determines if login attempt was successful or not and displays correct message
         if(existFile){
             Writer out = new BufferedWriter(new FileWriter(String.valueOf(filePath), true));
-            String logAttempt;
             if(loginValid){
-                logAttempt = "Login successful! " + "\nUsername: " + userIdTextField.getText() + "Timestamp " + LocalDateTime.now();
+                logAttempt = " Login successful! " + "\nUsername: " + username + " Timestamp " + LocalDateTime.now();
+                System.out.println(username);
             }else{
-                logAttempt = "Login not successful! " + "\nUsername: " + userIdTextField.getText() + "Timestamp " + LocalDateTime.now();
+                logAttempt = " Login not successful! " + "\nUsername: " + username + " Timestamp " + LocalDateTime.now();
+                System.out.println(username);
             }
             out.append(logAttempt);
-            out.close();
-            //else check if the existfile is not created this will create the new file
+//            out.close();
+
+            //else check if the log file is not created this will create the new file
         }else{
-            String loggingAtempt = "Username: " + userIdTextField.getText() + "TimeStamp: " + LocalDateTime.now();
-            Path newFile = Files.createFile(currPath.resolve("loggingactivity.txt"));
+            String loggingAtempt = " Username: " + username + " TimeStamp: " + LocalDateTime.now();
+            Path newFile = Files.createFile(currPath.resolve("login_activity.txt"));
             Files.writeString(newFile, loggingAtempt);
         }
     }
@@ -115,16 +118,21 @@ public class UserLogin implements Initializable {
     public void passUsername(String username) {
         this.username = username;
     }
+
 //used to check if app is within 15 minutes of login - will display alert if true
     public void fifteenMinuteAlert(){
+        boolean fifteen = false;
         for (Appointment appointment : appointments){
             LocalDateTime start = appointment.getStartDateTime();
-            if(start.isAfter(LocalDateTime.now()) && start.isBefore(LocalDateTime.now().plusMinutes(15))){
-                Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION, "Appointment within 15 minutes ", "Appointment ID: " + appointment.getAppointmentId() + " Date and time: " + start + "within 15 minutes");
-            }else {
-                Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION, "No appointments within 15 minutes ", "No appointments within 15 minutes ");
+                if (start.isAfter(LocalDateTime.now()) && start.isBefore(LocalDateTime.now().plusMinutes(15))) {
+                    Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION, "Appointment within 15 minutes ", "Appointment ID: " + appointment.getAppointmentId() + " Date and time: " + start + "within 15 minutes");
+                    fifteen = true;
+                    break;
+                }
             }
+        if(!fifteen){
+            Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION, "No upcoming appointments", "No appointments within 15 minutes");
+        }
         }
     }
-}
 

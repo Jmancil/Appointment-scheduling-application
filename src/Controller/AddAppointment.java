@@ -54,8 +54,8 @@ public class AddAppointment implements Initializable {
     public void saveAction(ActionEvent actionEvent) throws IOException, SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Press OK to submit");
-        alert.setContentText("Create a new Customer?");
-        alert.setTitle("Create a new Customer");
+        alert.setContentText("Create a new Appointment?");
+        alert.setTitle("Create a new Appointment");
         Optional<ButtonType> decision = alert.showAndWait();
 /*
  Alert created above and used below as trigger to assign data from fields to new appointment object
@@ -87,6 +87,7 @@ public class AddAppointment implements Initializable {
 
                 Appointment newAppointment = new Appointment(typel, locationl, descriptionl, titlel, contactId, customerID, userIdl, idl, endl, startl, loggedInUser);
                 if (!isAppointmnetOverlapped(newAppointment) && isAppBusinessHours(newAppointment)) {
+                    if (!startl.isAfter(endl)) {
                         Create.createAppointment(newAppointment);
                     /*
                     Loader object created to move user to main screen and pass back loggedInUser
@@ -100,8 +101,11 @@ public class AddAppointment implements Initializable {
                         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                         window.setScene(mainScreenScene);
                         window.show();
-                } else {
-                Helper.AlertError(Alert.AlertType.ERROR, "Invalid appointment hours", "Appointment time is overlapping or Appointment Start/End date is before or after business hours");
+                    } else{
+                        Helper.AlertError(Alert.AlertType.ERROR, "Error", "Start time must be before appointment end time");
+                    }
+                }else {
+                    Helper.AlertError(Alert.AlertType.ERROR, "Invalid appointment hours", "Appointment time is overlapping or Appointment Start/End date is before or after business hours");
             }
         }
     }

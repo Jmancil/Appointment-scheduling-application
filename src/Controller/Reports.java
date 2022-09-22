@@ -44,7 +44,7 @@ public class Reports implements Initializable {
     public TableColumn customerId;
 
     /*
-    Creation of monthAndTypesm sharedZips, and contacts array lists
+    Creation of monthAndTypes sharedZips, and contacts array lists
      */
     public ObservableList<ReportMonthandType> monthandTypes = Read.getAppsByTypeAndMonth();
     public ObservableList<SharedZip> sharedZips = Read.getZips();

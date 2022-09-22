@@ -259,9 +259,9 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
         Reports controller = loader.getController();
         controller.passLoggedInUser(loggedInUser);
         System.out.println(loggedInUser);
-        Scene mainScreenScene = new Scene(reports);
+        Scene report = new Scene(reports);
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene(mainScreenScene);
+        window.setScene(report);
         window.show();
     }
 /*

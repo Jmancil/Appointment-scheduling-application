@@ -37,4 +37,22 @@ public class ReportMonthandType {
     public void setType(String type) {
         this.type = type;
     }
+
+    /**
+     * Gets the reportMonthAndType Type
+     *
+     * @return reportMonthAndType Type is returned
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * Gets the month Type
+     *
+     * @return month Type is returned
+     */
+    public String getMonth() {
+        return month;
+    }
 }
