@@ -105,11 +105,11 @@ public class UserLogin implements Initializable {
                 System.out.println(username);
             }
             out.append(logAttempt);
-//            out.close();
+            out.close();
 
             //else check if the log file is not created this will create the new file
         }else{
-            String loggingAtempt = " Username: " + username + " TimeStamp: " + LocalDateTime.now();
+            String loggingAtempt = " Username: " + username + "TimeStamp: " + LocalDateTime.now();
             Path newFile = Files.createFile(currPath.resolve("login_activity.txt"));
             Files.writeString(newFile, loggingAtempt);
         }

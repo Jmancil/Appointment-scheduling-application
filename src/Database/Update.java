@@ -5,6 +5,7 @@ import Model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Update {
@@ -47,8 +48,8 @@ public class Update {
             ps.setString(2, appointmentModified.getDescription());
             ps.setString(3, appointmentModified.getLocation());
             ps.setString(4, appointmentModified.getType());
-            ps.setString(5, String.valueOf(appointmentModified.getStartDateTime()));
-            ps.setString(6, String.valueOf(appointmentModified.getEndDateTime()));
+            ps.setTimestamp(5, Timestamp.valueOf(appointmentModified.getStartDateTime()));
+            ps.setTimestamp(6, Timestamp.valueOf(appointmentModified.getEndDateTime()));
             ps.setString(7, String.valueOf(LocalDateTime.now()));
             ps.setString(8, String.valueOf(appointmentModified.getLoggedInUser()));
             ps.setInt(9, appointmentModified.getCustomerId());

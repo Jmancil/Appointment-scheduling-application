@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /*
 Functions to help with error checking, login validation, and alerts
@@ -34,18 +35,21 @@ public class Helper {
      */
     public static boolean loginValidation(String username, String password) {
 
-        ObservableList<Users> user = Read.getUsersInfo();
-        boolean loginValid = false;
+        ObservableList<Users> users = Read.getUsersInfo();
+        AtomicBoolean loginValid = new AtomicBoolean(false);
+        /*
+        Lambda expression Compares user input for username and password and matches them against the database
+        returns true or false for loginValidation
 
-        for (Users users : user) {
-            if (users.getUserName().equals(username)) {
-                if (users.getPassword().equals(password)) {
-                    loginValid = true;
+         */
+        users.forEach((user)->{
+            if(user.getUserName().equals(username)){
+                if(user.getPassword().equals(password)){
+                    loginValid.set(true);
                 }
             }
-        }
-
-        return loginValid;
+        });
+        return loginValid.get();
     }
     /*
     A simple confirmation alert that is used throughout program to alert user to confirmation messages
@@ -241,6 +245,8 @@ checks if data entry is null returns boolean if true/false
 //        }
 //        return isValid;
 //    }
+
+
 }
 
 
