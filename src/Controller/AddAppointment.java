@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/*
+/**
 Add appointment class
  */
 public class AddAppointment implements Initializable {
@@ -40,16 +40,16 @@ public class AddAppointment implements Initializable {
     public TextField type;
     private String loggedInUser;
     private int appNumbers;
-    /*
+    /**
     Creation of appointment and contact arrays
      */
     public ObservableList<Appointment> appointments = Read.getAppointments();
     public ObservableList<Contact> contacts = Read.getallContacts();
 
-    /*
+    /**
     Save and exit action for a new appointment
     @throws IOException - catches exceptions if thrown
-    @param ActionEvent actionEvent button press trigger for creation of Appointment
+    @param  actionEvent button press trigger for creation of Appointment
      */
     public void saveAction(ActionEvent actionEvent) throws IOException, SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -57,7 +57,7 @@ public class AddAppointment implements Initializable {
         alert.setContentText("Create a new Appointment?");
         alert.setTitle("Create a new Appointment");
         Optional<ButtonType> decision = alert.showAndWait();
-/*
+/**
  Alert created above and used below as trigger to assign data from fields to new appointment object
 */
         if (decision.get() == ButtonType.OK) {
@@ -110,7 +110,7 @@ public class AddAppointment implements Initializable {
         }
     }
 
-/*
+/**
 @param ActionEvent actionEvent
 @throws IOException Exception catches IO errors if exist
 creates Alert used for trigger to switch screens
@@ -132,14 +132,14 @@ passes logged in user
             window.show();
         }
     }
-/*
+/**
 catches loggedInUser
  */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
-    /*
+    /**
     Initializing contactcombo and passing number of appointments for ID auto assignment
      */
     @Override
@@ -148,8 +148,8 @@ catches loggedInUser
         contactComboPopulate();
     }
 
-    /*
-    @param int numberOfAppointments
+    /**
+    @param numberOfAppointments
     passing appointment numbers between screens
      */
     public void passAppNumbers(int appNumbers) {
@@ -157,6 +157,11 @@ catches loggedInUser
         getAppNext(appNumbers);
     }
 
+    /**
+     * Method for generating appoinment ID.
+     * checks if 0, if true assigns 1 to start
+     * @param numberOfAppointments
+     */
     public void getAppNext(int numberOfAppointments) {
         int size = numberOfAppointments; // Setting number of appointments size
         int n = 1;  // Iterator for check and setting values
@@ -179,21 +184,22 @@ catches loggedInUser
             }
         }
     }
-/*
-@param ActionEvent actionEvent Initializes contactCombo
+/**
+@param  actionEvent Initializes contactCombo
 @throws IOException Exception catches IO errors if exist
  */
     public void contactComboAction(ActionEvent actionEvent) throws SQLException {
     }
 
-/*Lambda expression to replace for loop
-Still cycles through contacts to assign correct display to contact combo box drop down selectable
+/**
+@Lambda expression to replace for loop
+cycles through contacts to assign correct display to contact combo box drop down selectable
  */
     public void contactComboPopulate(){
         contacts.forEach(contact -> contactCombo.getItems().add(contact.getContactNa()));
     }
-/*
-@param Appointment appointment Checks if appointment being added is overlapped with another appointment
+/**
+@param  appointment Checks if appointment being added is overlapped with another appointment
 Receives appointment that gets compared to all other appointments
 Comparison is handled by finding matching customerId's
  */
@@ -232,8 +238,8 @@ Comparison is handled by finding matching customerId's
         }
         return isOverlapped;
     }
-/*
-@param String string Date revert for start and end times
+/**
+@param  string Date revert for start and end times
  */
     public static LocalDateTime dateRevert(String string) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -241,8 +247,8 @@ Comparison is handled by finding matching customerId's
         return test;
     }
 
-    /*
-    @param Appointment appointment converts time of app to localDate and compares to LocalDateTime start and end of business hours
+    /**
+    @param  appointment converts time of app to localDate and compares to LocalDateTime start and end of business hours
     returns true or false
      */
     public boolean isAppBusinessHours(Appointment appointment){

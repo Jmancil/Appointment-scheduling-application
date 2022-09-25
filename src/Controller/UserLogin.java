@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class UserLogin implements Initializable {
@@ -37,12 +38,16 @@ public class UserLogin implements Initializable {
     public String username = "";
     public ObservableList<Appointment>  appointments = Read.getAppointments();
 
-    //checking for user location to change language on display form
+    /**
+     * Initialization used for checking user language and swaps display language if zoneId = France.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         language = ZoneId.systemDefault().toString();
-        if(!language.equals("America/New_York")){
+        if(Locale.getDefault().equals(Locale.FRANCE)){
             userIDLabel.setText("Identifiant d'utilisateur");
             userIdTextField.setPromptText("Identifiant d'utilisateur");
             userPasswordLabel.setText("Le mot de passe");
@@ -54,13 +59,21 @@ public class UserLogin implements Initializable {
         userLocation.setText(ZoneId.systemDefault().toString());
         System.out.println(language);
     }
-//login action sets username and password and matches to DB with query to/from
+
+    /**
+     * Login action sets Strings for username and password, logs loggin attempts, passes username for loggedinuser.
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void loginAction(ActionEvent actionEvent) throws IOException {
         String username = userIdTextField.getText();
         String password = userPassword.getText();
         loggingLogginAttempt();
         passUsername(username);
-
+    /**
+    * if checks loginvalid true/false, runs fifteenminute check if true and pushes loggedInUser and changes screen to main.
+    */
         boolean loginValid = Helper.loginValidation(username, password);
         if (loginValid){
             fifteenMinuteAlert();
@@ -73,9 +86,11 @@ public class UserLogin implements Initializable {
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(mainScreenScene);
             window.show();
-            //else displays error message in different languages depending on where user is logged in
+            /**
+             * else displays error message in different languages depending on where user is logged in
+             */
         }else {
-            if(!language.equals("America/New_York")){
+            if(Locale.getDefault().equals(Locale.FRANCE)){
                 Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION,"ERREUR","identifiant ou mot de passe incorrect");
             }else{
                 Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION,"ERROR", "Incorrect username or password");
@@ -83,8 +98,11 @@ public class UserLogin implements Initializable {
         }
     }
 
-    //Method that logs user login attempts and writes to a file
-    //Method will display if login attempt was successful + the userName + timestamp the attempt occured
+    /**
+     * Method that logs user login attempts and writes to a file.
+     * Method will display if login attempt was successful + the userName + timestamp the attempt occurred.
+     * @throws IOException
+     */
     public void loggingLogginAttempt() throws IOException{
         String username = userIdTextField.getText();
         String password = userPassword.getText();
@@ -94,7 +112,9 @@ public class UserLogin implements Initializable {
         String logAttempt;
         boolean existFile = Files.exists(filePath);
 
-        //if / nested if else determines if login attempt was successful or not and displays correct message
+        /**
+         * if / nested if else determines if login attempt was successful or not and displays correct message.
+         */
         if(existFile){
             Writer out = new BufferedWriter(new FileWriter(String.valueOf(filePath), true));
             if(loginValid){
@@ -107,19 +127,27 @@ public class UserLogin implements Initializable {
             out.append(logAttempt);
             out.close();
 
-            //else check if the log file is not created this will create the new file
+            /**
+             * else check if the log file is not created this will create the new file
+             */
         }else{
             String loggingAtempt = " Username: " + username + "TimeStamp: " + LocalDateTime.now();
             Path newFile = Files.createFile(currPath.resolve("login_activity.txt"));
             Files.writeString(newFile, loggingAtempt);
         }
     }
-//passing username
+
+    /**
+     * Passing username
+     * @param username
+     */
     public void passUsername(String username) {
         this.username = username;
     }
 
-//used to check if app is within 15 minutes of login - will display alert if true
+    /**
+     * Used to check if app is within 15 minutes of login - will display alert if true
+     */
     public void fifteenMinuteAlert(){
         boolean fifteen = false;
         for (Appointment appointment : appointments){

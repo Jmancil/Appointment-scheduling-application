@@ -38,9 +38,9 @@
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="503.0" text="Location" GridPane.rowIndex="6" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="386.0" text="Contact" GridPane.rowIndex="7" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="378.0" text="Type" GridPane.rowIndex="8" />
-                <TextField fx:id="appointmentId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="appointmentId" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="userId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="customerId" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="customerId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="title" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextField fx:id="description" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <TextField fx:id="location" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -71,7 +71,7 @@
                         <TextField fx:id="end" layoutX="26.0" layoutY="8.0" />
                     </children>
                 </AnchorPane>
-                <ComboBox fx:id="contactCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <ComboBox fx:id="contactCombo" editable="true" onAction="#contactComboAction" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </children>
         </GridPane>
     </children>

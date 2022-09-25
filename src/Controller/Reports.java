@@ -51,11 +51,19 @@ public class Reports implements Initializable {
     public ObservableList<Contact> contacts = Read.getallContacts();
     private String loggedInUser;
 
-    //reports initialization
+    /**
+     * Reports initialization
+     * @throws SQLException
+     */
     public Reports() throws SQLException {
     }
 
-    //Initializations
+    /**
+     * Initializes tables for monthAndTypes, sharedZips, contacts.
+     * Also sets cell values.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -89,7 +97,9 @@ public class Reports implements Initializable {
         customerId.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("customerId"));
     }
 
-    //@param ActionEvent actionEvent contactCombo initializing combo box
+    /**
+     * @param  actionEvent contactCombo initializing combo box
+     */
     public void contactComboAction(ActionEvent actionEvent) {
         int contactId = Read.contactIdFromName(contactCombo.getSelectionModel().getSelectedItem().toString());
         //creating appointment array for population, calling Read method to fill array
@@ -97,14 +107,18 @@ public class Reports implements Initializable {
         //Setting items after creation
         appsByContact.setItems(appsByContactName);
     }
-    //population of contact list
+
+    /**
+     * population of contact list.
+     */
+
     public void popContactList(){
         for(Contact contact : contacts){
             contactCombo.getItems().add(contact.getContactNa());
         }
     }
-    /*
-    @param ActionEvent actionEvent exits reports screen and passes back logged in user
+    /**
+    @param actionEvent exits reports screen and passes back logged in user
     @throws IOException Exception catches IO errors if exist
      */
     public void exitAction(ActionEvent actionEvent) throws IOException {
@@ -123,7 +137,10 @@ public class Reports implements Initializable {
              window.show();
          }
     }
-//@param String loggInUser catching loggedInuser
+
+    /**
+     * @param loggedInUser catching loggedInuser
+     */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }

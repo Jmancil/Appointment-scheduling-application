@@ -12,8 +12,8 @@ Create class for database create operations in mysql
  */
 public class Create {
 
-    /*
-    @param Customer customer method creates a string with an insert SQL operation to create a new customer in the database
+    /**
+    @param customer method creates a string with an insert SQL operation to create a new customer in the database
      */
     public static void createCustomer(Customer customer){
         try{
@@ -39,8 +39,8 @@ public class Create {
         }
     }
 
-    /*
-    @param Appointment appointment creates new appointment with String statement
+    /**
+    @param appointment creates new appointment with String statement
      */
     public static void createAppointment(Appointment appointment) throws SQLException {
         try{

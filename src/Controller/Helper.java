@@ -22,25 +22,24 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/*
+/**
 Functions to help with error checking, login validation, and alerts
  */
 public class Helper {
-    /*
+    /**
     Validates user login by parsing DB with Read.getUSersInfo
     Iterates user list for username and password match, returns true if found
     Returns false if not found
-    @param String username user username for comparison
-    @param String password user password for comparison
+    @param  username user username for comparison
+    @param  password user password for comparison
      */
     public static boolean loginValidation(String username, String password) {
 
         ObservableList<Users> users = Read.getUsersInfo();
         AtomicBoolean loginValid = new AtomicBoolean(false);
-        /*
-        Lambda expression Compares user input for username and password and matches them against the database
+        /**
+        @Lambda expression Compares user input for username and password and matches them against the database
         returns true or false for loginValidation
-
          */
         users.forEach((user)->{
             if(user.getUserName().equals(username)){
@@ -51,11 +50,11 @@ public class Helper {
         });
         return loginValid.get();
     }
-    /*
+    /**
     A simple confirmation alert that is used throughout program to alert user to confirmation messages
-    @param AlertType Confirmation
-    @param String title
-    @param String header
+    @param  Confirmation
+    @param  title
+    @param  header
      */
 
     public static void AlertConfirmation(Alert.AlertType Confirmation, String title, String header) {
@@ -65,11 +64,10 @@ public class Helper {
         Optional<ButtonType> result = alert.showAndWait();
 
     }
-    /*
+    /**
         A simple confirmation alert error that is used throughout program to alert user to confirmation error messages
-        @param AlertError error
-        @param String title
-        @param String header
+        @param  title
+        @param  header
          */
     public static void AlertError(Alert.AlertType Error, String title, String header) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -77,7 +75,7 @@ public class Helper {
         alert.setHeaderText(header);
         Optional<ButtonType> result = alert.showAndWait();
     }
-/*
+/**
 used to check date conversion for localdatetime
 Reads LocalDateTime to a string
  */
@@ -95,13 +93,13 @@ Reads LocalDateTime to a string
             throwables.printStackTrace();
         }
     }
-/*
+/**
 Screen change method used throughout program to more easily change screens
 @throws IOException Exception catches IO errors if exist
-@param ActionEvent actionEvent
-@param String resourceName
-@param String title
-@param boolean isResize
+@param  actionEvent
+@param  resourceName
+@param  title
+@param isResize
  */
     public static FXMLLoader screenChange(ActionEvent actionEvent, String resourceName, String title, boolean isResize) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -112,10 +110,10 @@ Screen change method used throughout program to more easily change screens
         stage.show();
         return null;
     }
-/*
+/**
 customer input validation
 checks if data entry is null returns boolean if true/false
-@param Customer customer
+@param  customer
  */
     public static boolean validateCustomer(Customer customer){
         boolean isFieldEmpty = true;
@@ -149,102 +147,6 @@ checks if data entry is null returns boolean if true/false
         }
         return isFieldEmpty;
     }
-
-    public static boolean validateAppointment(Appointment appointment){
-        String headerText = "";
-        boolean isValid = true;
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid data input");
-        if(appointment.getUserId() != 0){
-            headerText = "Please input user ID";
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getCustomerId() <= 0){
-            headerText = ("Please input customer ID");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getTitle() == null){
-            headerText = ("Please input title");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getDescription() == null){
-            headerText = ("Please input description");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getLocation() == null){
-            headerText = ("Please input location");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getType() == null){
-            headerText = ("Please input type");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getType() == null) {
-            headerText = ("Please input type");
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getStartDateTime() == null) {
-            headerText = " Please input Start Date time with format of yyyy-MM-dd HH:mm";
-            alert.setHeaderText(headerText);
-        }
-        if(appointment.getEndDateTime() == null) {
-            headerText = "Please input End Date time with format of yyyy-MM-dd HH:mm";
-            alert.setHeaderText(headerText);
-        }
-        if(!headerText.isEmpty()){
-            alert.showAndWait();
-            isValid = false;
-        }
-        return isValid;
-    }
-
-//    public static boolean validateAppointment(Appointment appointment){
-//        String headerText = "";
-//        boolean isValid = true;
-//        Alert alert = new Alert(Alert.AlertType.ERROR);
-//        alert.setTitle("Invalid data input");
-//        if(appointment.getUserId() <= 0){
-//            headerText = "Please input user ID";
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getCustomerId() <= 0){
-//            headerText = ("Please input customer ID");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getTitle().contains("")){
-//            headerText = ("Please input title");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getDescription() == null){
-//            headerText = ("Please input description");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getLocation() == null){
-//            headerText = ("Please input location");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getType() == null){
-//            headerText = ("Please input type");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getType() == null) {
-//            headerText = ("Please input type");
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getStartDateTime() == null) {
-//            headerText = " Please input Start Date time with format of yyyy-MM-dd HH:mm";
-//            alert.setHeaderText(headerText);
-//        }
-//        if(appointment.getEndDateTime() == null) {
-//            headerText = "Please input End Date time with format of yyyy-MM-dd HH:mm";
-//            alert.setHeaderText(headerText);
-//        }
-//        if(!headerText.isEmpty()){
-//            alert.showAndWait();
-//            isValid = false;
-//        }
-//        return isValid;
-//    }
 
 
 }

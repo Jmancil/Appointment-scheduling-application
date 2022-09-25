@@ -20,11 +20,11 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-/*
+/**
 Add customer class controller
  */
 public class AddCustomer implements Initializable {
-    /*
+    /**
     Creation of country, customers, and division arrays for use
      */
     private final ObservableList<Country> countries = Read.getAllCountries();
@@ -56,8 +56,8 @@ public class AddCustomer implements Initializable {
     public AddCustomer() throws SQLException {
     }
 
-/*
-@param ActionEvent actionEvent saves and exits to main screen
+/**
+@param actionEvent saves and exits to main screen
 @throws IOException Exception catches IO errors if exist
  */
     public void saveExit(ActionEvent actionEvent) throws IOException {
@@ -107,8 +107,8 @@ public class AddCustomer implements Initializable {
         }
     }
 
-    /*
-    @param ActionEvent actionEvent Exits the Add Customer screen with user prompt - does not save input data
+    /**
+    @param actionEvent Exits the Add Customer screen with user prompt - does not save input data
     @throws IOException Exception catches IO errors if exist
      */
     public void customerExit(ActionEvent actionEvent) throws IOException {
@@ -121,8 +121,8 @@ public class AddCustomer implements Initializable {
         }
     }
 
-    /*
-    Lambda to replace for loop
+    /**
+    @Lambda to replace for loop
     Iterates countries to fill country combo box
      */
     public void countryComboPopulate(){
@@ -136,8 +136,8 @@ public class AddCustomer implements Initializable {
         countryComboPopulate();
         passCustomerNumbers(customers.size());
     }
-/*
-@param ActionEvent actionEvent CountryComboAction used to populate country drop down and then display available list of Divisions for specific country
+/**
+@param actionEvent CountryComboAction used to populate country drop down and then display available list of Divisions for specific country
 @throws IOException Exception catches IO errors if exist
  */
     public void countryComboAction(ActionEvent actionEvent) throws SQLException {
@@ -154,15 +154,17 @@ public class AddCustomer implements Initializable {
             }
         }
     }
-/*
-@param int numberOfCustomers setting number of customers for CustomerId incrementing
- */
+
+    /**
+     *  setting number of customers for CustomerId incrementing
+     * @param CustomerNumbers
+     */
     public void passCustomerNumbers(int CustomerNumbers) {
         this.CustomerNumbers = CustomerNumbers;
         getNextIdNumber(CustomerNumbers);
     }
-/*
-@param int customerCount used for finding next customerId or assigning one if 0 customers exist
+/**
+@param customerCount used for finding next customerId or assigning one if 0 customers exist
  */
     public void getNextIdNumber(int customerCount) {
         int size = customerCount; // Set the size of customerCount

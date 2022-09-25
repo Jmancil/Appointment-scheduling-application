@@ -18,7 +18,10 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
-    //This method opens connection to DB
+    /**
+     * Method opens connection to DB
+     * @return
+     */
     public static Connection openConnection()
     {
         try {
@@ -34,12 +37,18 @@ public abstract class JDBC {
         }
         return connection;
     }
-    //Gets connection to DB
+
+    /**
+     * Gets connection to DB
+     * @return
+     */
     public static Connection getConnection(){
         return connection;
     }
 
-    //This method closes connect to DB
+    /**
+     * Closes connection to DB
+     */
     public static void closeConnection() {
         try {
             connection.close();

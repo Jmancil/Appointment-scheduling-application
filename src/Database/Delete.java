@@ -6,12 +6,12 @@ import Model.Customer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.PropertyPermission;
-/*
+/**
 delete class for database delete operations in mysql
  */
 public class Delete {
-/*
-@param Appointment appointment appointment deletion
+/**
+@param appointment appointment deletion
 appointment selected from specific appointmentId of appointment that gets passed in
  */
     public static void deleteApp(Appointment appointment){
@@ -28,8 +28,8 @@ appointment selected from specific appointmentId of appointment that gets passed
         }
     }
 
-    /*
-    @param Customer customer customer deletion
+    /**
+    @param customer customer deletion
     customer selected from specific customerId of customer that gets passed in
      */
     public static void deleteCustomer(Customer customer){

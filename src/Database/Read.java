@@ -9,7 +9,10 @@ import java.time.LocalDateTime;
 public class Read {
 //    public static ObservableList<Appointment> getAppsByMonth;
 
-    //Observable list of users to compare user login information to database
+    /**
+     * Observable list of users to compare user login information to database
+     * @return
+     */
     public static ObservableList<Users> getUsersInfo() {
         ObservableList<Users> user = FXCollections.observableArrayList();
 
@@ -34,7 +37,10 @@ public class Read {
         return user;
     }
 
-//Observable list of all countries
+    /**
+     * Observable list of all countries
+     * @return
+     */
     public static ObservableList<Country> getAllCountries() {
         ObservableList<Country> clist = FXCollections.observableArrayList();
 
@@ -61,7 +67,10 @@ public class Read {
         return clist;
     }
 
-    //gets all customers and returns them in an array
+    /**
+     * gets all customers and returns them in an array
+     * @return
+     */
     public static ObservableList<Customer> getAllCustomers() {
         //array creation
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
@@ -92,7 +101,10 @@ public class Read {
         return allCustomers;
     }
 
-    //Gets all existing appointments in database
+    /**
+     * Gets all existing appointments in database
+     * @return
+     */
     public static ObservableList<Appointment> getAppointments() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         try {
@@ -129,8 +141,8 @@ public class Read {
         return appointments;
     }
 
-    /*
-    @param int countryId gets divisions buy countryId - creates array list of divisions and returns it
+    /**
+    @param countryId gets divisions buy countryId - creates array list of divisions and returns it
     @throws SQLException catches exception if thrown
      */
     public static ObservableList<Division> getAllDivisionsByCountryId(int countryId) throws SQLException {
@@ -155,7 +167,12 @@ public class Read {
         //returns divisions list
         return divisions;
     }
-    //method to retrieve all divisions with observable list
+
+    /**
+     * method to retrieve all divisions with observable list
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Division> getAllDivisions() throws SQLException {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
         try {
@@ -176,7 +193,10 @@ public class Read {
         return divisions;
     }
 
-    //gets all contacts - creates observable list and returns in
+    /**
+     * gets all contacts - creates observable list and returns in
+     * @return
+     */
     public static ObservableList<Contact> getallContacts(){
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
         try{
@@ -200,42 +220,8 @@ public class Read {
         return contacts;
     }
 
-//    public static ObservableList<Appointment> getAllContactsByContactId(int contactId) throws SQLException {
-//        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-//
-//        try {
-//            String sql = "SELECT contact_id, contact_name, email FROM client_schedule.contacts WHERE contact_id = ?;";
-//            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
-//            ps.setInt(1, contactId);
-//
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                int appointmentId = rs.getInt("Appointment_ID");
-//                String title = rs.getString("Title");
-//                String description = rs.getString("Description");
-//                String location = rs.getString("Location");
-//                String type = rs.getString("Type");
-//                Timestamp start_time = rs.getTimestamp("Start");
-//                Timestamp end_time = rs.getTimestamp("End");
-//                int customerId = rs.getInt("Customer_ID");
-//                int userId = rs.getInt("User_ID");
-//                int contactIdl = rs.getInt("Contact_ID");
-//
-//                LocalDateTime start = start_time.toLocalDateTime();
-//                LocalDateTime end = end_time.toLocalDateTime();
-//
-//                Appointment n = new Appointment(type, location, description, title, contactIdl, customerId, userId, appointmentId, end, start);
-//                appointments.add(n);
-//
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return appointments;
-//    }
-
-    /*
-    @param int specificCountryId gets country by specific ID and returns country list
+    /**
+    @param specificCountryId gets country by specific ID and returns country list
      */
     public static Country getCounryById(int specificCountryId) {
         Country specificCountry = null;
@@ -261,26 +247,9 @@ public class Read {
         return specificCountry;
     }
 
-//    public static int getCustomerDivision(String contactName) throws SQLException {
-//        int contactId = 0;
-//
-//        try {
-//            String getContact = "select contact_id from contacts where email = ?;";
-//            PreparedStatement ps = JDBC.getConnection().prepareStatement(getContact);
-//            ps.setString(1, contactName);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()){
-//                contactId = rs.getInt("Contact_ID");
-//            }
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return contactId;
-//    }
 
-    /*
-    @param int customerId accepts customerId selects all appointments where customerId matches
+    /**
+    @param customerId accepts customerId selects all appointments where customerId matches
      */
     public static int customerApps(int customerId){
         int customerAppointments = 0;
@@ -302,7 +271,7 @@ public class Read {
         //returns customer appointments list
         return customerAppointments;
     }
-    /*
+    /**
     Reports by type and month method - creates and returns an array of reports
      */
     public static ObservableList<ReportMonthandType> getAppsByTypeAndMonth() throws SQLException {
@@ -330,7 +299,8 @@ public class Read {
         return typeAndMonth;
     }
 
-    /*method for gathering similar zip codes grouped by count
+    /**
+    method for gathering similar zip codes grouped by count
     creates array list of zips
      */
     public static ObservableList<SharedZip> getZips() {
@@ -354,8 +324,8 @@ public class Read {
         return zipReports;
     }
 
-    /*
-    @param String contactName gets contact ID from contact name that user passes
+    /**
+    @param contactName gets contact ID from contact name that user passes
      */
     public static int contactIdFromName(String contactName){
         int contactId = 0;
@@ -376,8 +346,8 @@ public class Read {
         return contactId;
     }
 
-    /*
-    @param int contactId gets apps by contactId
+    /**
+    @param contactId gets apps by contactId
     Creates list of appointments and returns the list
      */
     public static ObservableList<Appointment> getAppsByContact(int contactId) {
@@ -417,7 +387,7 @@ public class Read {
         return apps;
     }
 
-    /*
+    /**
     appointments by month method - creates appointment array and returns it
      */
     public static ObservableList<Appointment> getAppsByMonth() {
@@ -456,7 +426,7 @@ public class Read {
         return monthApps;
     }
 
-    /*
+    /**
     creates and returns list of weekly appointments
      */
     public static ObservableList<Appointment> getAppsByWeek() {

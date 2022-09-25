@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/*
+/**
 Modify Customer class controller
  */
 
@@ -43,21 +43,21 @@ public class ModifyCustomer implements Initializable {
     //initialization for ModifyCustomer
     public ModifyCustomer() throws SQLException {
     }
-/*
-@param String loggedInUser Catching logged in user from main screen
+/**
+@param loggedInUser Catching logged in user from main screen
  */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
-/*
-@param Customer getCustomer catching customer to be modified
+/**
+@param getCustomer catching customer to be modified
 */
     public static void setCustomerPass(Customer getCustomer) {
         ModifyCustomer.setCustomerPass = getCustomer;
     }
 
-/*
+/**
 Initializing customerPass
 */
     @Override
@@ -68,8 +68,8 @@ Initializing customerPass
             e.printStackTrace();
         }
     }
-/*
-@param Customer customer customer pass method used for passing in highlighted customer from main screen
+/**
+@param customer customer pass method used for passing in highlighted customer from main screen
 sets text fields with correct data from passed customer
 Creates country object by using specific country ID
 @throws IOException Exception catches IO errors if exist
@@ -85,13 +85,13 @@ Creates country object by using specific country ID
         countryCombo.setValue(country.getCountryName());
     }
 
-/*
-@param ActionEvent actionEvent
+/**
+@param actionEvent
 @throws IOException Exception catches IO errors if exist
 Saves and exits modify customer to main screen
  */
     public void saveExit(ActionEvent actionEvent) throws IOException {
-/*
+/**
 creation of alert object used below as trigger to save data
  */
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -99,7 +99,7 @@ creation of alert object used below as trigger to save data
         alert.setContentText("Create a new Customer?");
         alert.setTitle("Create a new Customer");
         Optional<ButtonType> decision = alert.showAndWait();
-/*
+/**
 If Ok is clicked from alert above data saved from text field and new customer object is saved
  */
         if (decision.get() == ButtonType.OK) {
@@ -109,14 +109,14 @@ If Ok is clicked from alert above data saved from text field and new customer ob
             String zipl = zip.getText();
             String phonel = phone.getText();
             int customerDivision = Integer.parseInt(String.valueOf(divisionCombo.getSelectionModel().getSelectedItem()));
-/*
+/**
 customer created - Helper.validateCustomer checks data input fields for correct type
 Update.updateCustomer feeds created customer to update method in Update class
  */
             Customer updatedCustomer = new Customer(idl, namel, addressl, zipl, phonel, customerDivision, loggedInUser);
             if (Helper.validateCustomer(updatedCustomer)) {
                 Update.updateCustomer(updatedCustomer);
-/*
+/**
 FXMLLoader object creation to point back to main screen
 also passes back logged in user that is used for DB updates.
  */
@@ -137,20 +137,20 @@ also passes back logged in user that is used for DB updates.
             }
         }
     }
-/*
-@param ActionEvent actionEvent Exit action from modify customer to main screen
+/**
+@param actionEvent Exit action from modify customer to main screen
 @throws IOException Exception catches IO errors if exist
 No data is saved
  */
         public void exitAction (ActionEvent actionEvent) throws IOException {
-/*
+/**
 Alert creating for returning to main screen with confirmation
 */
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("Return to main screen?");
             alert.setTitle("Return to main screen?");
             Optional<ButtonType> decision = alert.showAndWait();
-/*
+/**
 FXMLLoader object creation to point back to main screen
 also passes back logged in user that is used for DB updates.
  */

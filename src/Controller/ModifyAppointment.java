@@ -3,6 +3,7 @@ package Controller;
 import Database.Read;
 import Database.Update;
 import Model.Appointment;
+import Model.Contact;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,7 @@ public class ModifyAppointment implements Initializable {
     public ComboBox contactCombo;
     private String loggedInUser;
     private static Appointment setAppPass;
+    public ObservableList<Contact> contacts = Read.getallContacts();
 
     //Array list of all appointments
     public ObservableList<Appointment> appointments = Read.getAppointments();
@@ -48,6 +50,7 @@ public class ModifyAppointment implements Initializable {
         try {
             //Initialization of appointment being passed in
             appointmentPass(setAppPass);
+            contactComboPopulate();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,15 +58,29 @@ public class ModifyAppointment implements Initializable {
             e.printStackTrace();
         }
     }
-/*
+    /**
+    @param actionEvent Initializes contactCombo
+    @throws IOException Exception catches IO errors if exist
+     */
+    public void contactComboAction(ActionEvent actionEvent) throws SQLException {
+    }
+
+    /**
+    Lambda expression to replace for loop
+    Still cycles through contacts to assign correct display to contact combo box drop down selectable
+     */
+    public void contactComboPopulate(){
+        contacts.forEach(contact -> contactCombo.getItems().add(contact.getContactNa()));
+    }
+/**
 Method for passing in the appointment to modify
-@param Appointment getAppointment
+@param getAppointment
  */
     public static void setAppPass(Appointment getAppointment) {
         ModifyAppointment.setAppPass = getAppointment;
     }
-/*
-@param Appointment appointment setting the text fields for the modify appointment view
+/**
+@param appointment setting the text fields for the modify appointment view
 @throws IOException Exception catches IO errors if exist
  */
     public void appointmentPass(Appointment appointment) throws IOException, SQLException {
@@ -79,14 +96,14 @@ Method for passing in the appointment to modify
         contactCombo.setValue(String.valueOf(appointment.getContactId()));
     }
 
-    /*
+    /**
     passing the logged in user around for DB update purposes
-    @param String loggedInUser
+    @param loggedInUser
      */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
-/*
+/**
 @param actionEvent used for button action
 @throws IOException exceptions get caught if any errors exist
 Saves and exits the modify appointment screen back to the main screen
@@ -112,9 +129,18 @@ Also passes back the logged in user
             String typel = type.getText();
             LocalDateTime startl = dateRevert(start.getText());
             LocalDateTime endl = dateRevert(end.getText());
-            int contact = Integer.parseInt(String.valueOf(contactCombo.getSelectionModel().getSelectedItem()));
+            String contactName = contactCombo.getSelectionModel().getSelectedItem().toString();
+            int contactId = 0;
+            /*
+            Contact for loop to select correct contact ID
+             */
+            for (Contact contact : contacts) {
+                if (contactName.equalsIgnoreCase(contact.getContactNa())) {
+                    contactId = contact.getContactId();
+                }
+            }
             //appointment created/assigned with new values
-            Appointment appointmentModified = new Appointment(typel, locationl, descriptionl, titlel, contact, customerIdl, userIdl, appIdl, endl, startl, loggedInUser);
+            Appointment appointmentModified = new Appointment(typel, locationl, descriptionl, titlel, contactId, customerIdl, userIdl, appIdl, endl, startl, loggedInUser);
             //checks for overlap time && business hour check
             if(!isAppointmnetOverlapped(appointmentModified) && isAppBusinessHours(appointmentModified)){
             Update.updateApp(appointmentModified);
@@ -133,7 +159,7 @@ Also passes back the logged in user
             }
         }
     }
-/*
+/**
 @param actionEvent used for button action
 @throws IOException exceptions get caught if any errors exist
 Exits the modify appointment screen without saving any data
@@ -157,8 +183,8 @@ Also passes back the loggedInUser
         }
     }
 
-    /*
-    @paoram LocalDateTime localDateTime used for time conversion for DB and display changes
+    /**
+    @param localDateTime used for time conversion for DB and display changes
     Formats data read from DB to be local time
     yyyy-MM-dd h:mm:ss
      */
@@ -168,7 +194,7 @@ Also passes back the loggedInUser
         return parseDateTime;
     }
 
-    /*
+    /**
         @paoram LocalDateTime localDateTime used for time conversion for DB and display changes
         Formats data read from DB to be local time
         yyyy-MM-dd h:mm:ss
@@ -179,8 +205,8 @@ Also passes back the loggedInUser
         return test;
     }
 
-    /*
-     @param Appointment appointment used for time checks against other appointments && weekend check
+    /**
+     @param appointment used for time checks against other appointments && weekend check
      *Checks appointment times against other appointments to see if times overlap
      *creates list of appointments to iterate through for comparing stored apps to the app fed to the method
      *compares by customerId then compares start and end date time to DayofWeek Saturday + Sunday
@@ -222,8 +248,8 @@ Also passes back the loggedInUser
         }
         return isOverlapped;
     }
-/*
- *@param Appointment appointment used for appointment to make sure times are within business hours
+/**
+ *@param appointment used for appointment to make sure times are within business hours
  *Checks appointment times against business hours
  *test set to selected appointments startdatetime.local time
  * then fed into LocalDateTime.of to set hours for comparison

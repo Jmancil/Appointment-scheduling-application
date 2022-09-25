@@ -75,14 +75,19 @@ public class MainScreen implements Initializable {
     ObservableList<Appointment> monthlyAppointments = Read.getAppsByMonth() ;
     ObservableList<Appointment> weeklyAppointments = Read.getAppsByWeek();
 
-    /*
+    /**
     passing the logged in user around for DB update purposes
-    @param String loggedInUser
+    @param loggedInUser
      */
     public void passLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
+    /**
+     * List view population, table initializations
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //list views population
@@ -118,8 +123,8 @@ public class MainScreen implements Initializable {
 
     public MainScreen() throws SQLException {
     }
-/*
-@param ActionEvent actionEvent AddCustomerAction points to new window with FXMLloader and passes logged in user from above
+/**
+@param  actionEvent AddCustomerAction points to new window with FXMLloader and passes logged in user from above
 @throws IOException Exception catches IO errors if exist
  */
     public void addCustomerAction(ActionEvent actionEvent) throws IOException {
@@ -134,8 +139,8 @@ public class MainScreen implements Initializable {
         window.show();
     }
 
-    /*
-@param ActionEvent actionEvent AddAppointment action points to new window with FXMLloader and passes logged in user from above
+    /**
+@param  actionEvent AddAppointment action points to new window with FXMLloader and passes logged in user from above
 @throws IOException Exception catches IO errors if exist
  */
     public void addAppointAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -150,8 +155,8 @@ public class MainScreen implements Initializable {
         window.show();
     }
 
-    /*
-@param ActionEvent actionEvent modifyCustomerAction action points to new window with FXMLloader and passes logged in user from above
+    /**
+@param actionEvent modifyCustomerAction action points to new window with FXMLloader and passes logged in user from above
 Utilizes .getSelection and .getSelectedItem to create a new Customer from the highlighted item to pass to the next screen
 @throws IOException Exception catches IO errors if exist
 */
@@ -222,8 +227,8 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
             Helper.AlertError(Alert.AlertType.ERROR, "Selected customer must not have associated appointments", "Please delete associated appointments");
         }
     }
-    /*
-    @param ActionEvent actionEvent deletes the highlighted appointment - also displays error message if no appointment is highlighted
+    /**
+    @param actionEvent deletes the highlighted appointment - also displays error message if no appointment is highlighted
     */
     public void deleteAppointmentAction(ActionEvent actionEvent) {
         Appointment deleteHighlightedAppointment = appTable.getSelectionModel().getSelectedItem();
@@ -249,8 +254,8 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
         }
     }
 
-    /*
-        @param ActionEvent actionEvent reportsAction action points to new window with FXMLloader and passes logged in user from above
+    /**
+        @param actionEvent reportsAction action points to new window with FXMLloader and passes logged in user from above
         @throws IOException Exception catches IO errors if exist
         */
     public void reportsAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -264,8 +269,8 @@ Utilizes .getSelection and .getSelectedItem to create a new Customer from the hi
         window.setScene(report);
         window.show();
     }
-/*
-@param ActionEvent actionEvent sets the view for appointments to display all appointments regardless of when the appointment is
+/**
+@param actionEvent sets the view for appointments to display all appointments regardless of when the appointment is
 this is also the default setting when a user first enters the application
  */
     public void viewAllAction(ActionEvent actionEvent) {
@@ -275,8 +280,8 @@ this is also the default setting when a user first enters the application
 
         appTable.setItems(appointments);
     }
-    /*
-    @param ActionEvent actionEvent Sets the appointments displayed to a monthly timeframe
+    /**
+    @param actionEvent Sets the appointments displayed to a monthly timeframe
      */
 
     public void viewMonthlyAction(ActionEvent actionEvent) {
@@ -286,8 +291,8 @@ this is also the default setting when a user first enters the application
 
         appTable.setItems(monthlyAppointments);
     }
-    /*
-    @param ActionEvent actionEvent Sets the appointments displayed to a weekly timeframe
+    /**
+    @param actionEvent Sets the appointments displayed to a weekly timeframe
      */
 
     public void viewWeeklyAction(ActionEvent actionEvent) {

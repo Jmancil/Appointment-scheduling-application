@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 
 public class Update {
 
-    /*
-    @param Customer customerUpdate updates the customer when called
+    /**
+    @param customerUpdate updates the customer when called
      */
     public static void updateCustomer(Customer customerUpdate){
         try {
@@ -35,8 +35,8 @@ public class Update {
         }
     }
 
-    /*
-    @param Appointment appointmentModified updates current selected appointment when called
+    /**
+    @param appointmentModified updates current selected appointment when called
      */
     public static void updateApp(Appointment appointmentModified) {
         try {

@@ -12,12 +12,22 @@ import java.sql.SQLException;
 
 public class Main extends Application {
 
+    /**
+     * Main Method.
+     * @param args
+     * @throws SQLException
+     */
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
         Helper.checkDateConversion();
         launch(args);
     }
 
+    /**
+     * Starts and pushes main screen fxml
+     * @param mainStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage mainStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/User Login.fxml"));
