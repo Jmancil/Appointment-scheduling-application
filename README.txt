@@ -5,6 +5,7 @@ Author: James Mancil
 Student ID: 000577272 
 Contact: Jmanci6@wgu.edu
 Date: 9.20.2022
+Student Application version: 3.0
 
 Application Information:
 MySQL:Version 8.0.28 build 1474738

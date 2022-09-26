@@ -67,6 +67,7 @@ public class UserLogin implements Initializable {
      * @throws IOException
      */
     public void loginAction(ActionEvent actionEvent) throws IOException {
+        try {
         String username = userIdTextField.getText();
         String password = userPassword.getText();
         loggingLogginAttempt();
@@ -95,6 +96,9 @@ public class UserLogin implements Initializable {
             }else{
                 Helper.AlertConfirmation(Alert.AlertType.CONFIRMATION,"ERROR", "Incorrect username or password");
             }
+        }
+        }catch (Exception e){
+//            e.printStackTrace();
         }
     }
 
