@@ -111,7 +111,7 @@ public class AddAppointment implements Initializable {
     }
 
 /**
-@param ActionEvent actionEvent
+@param actionEvent actionEvent
 @throws IOException Exception catches IO errors if exist
 creates Alert used for trigger to switch screens
 passes logged in user
