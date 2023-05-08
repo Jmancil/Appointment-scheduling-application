@@ -1,5 +1,5 @@
 Title: Appointment scheduling application
-Purpose: Manager User and Customer appointments with MYSQL Database
+Purpose: Manage User and Customer appointments with MYSQL Database
 
 Author: James Mancil
 Student ID: 000577272 
